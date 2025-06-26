@@ -2,7 +2,7 @@ import { browser } from '@wdio/globals'
 
 export default class Page {
    
-    public open () {
-        return browser.url(`https://demoqa.com/`)
+    public async open () {
+        return await browser.url(`https://demoqa.com/`)
     }
 }
