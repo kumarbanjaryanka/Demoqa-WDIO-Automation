@@ -1,0 +1,48 @@
+# Dependency directories
+node_modules/
+.npm/
+
+# WebdriverIO output
+allure-report/
+allure-results/
+errorShots/
+logs/
+
+# Compiled JS (if using TypeScript or Babel)
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# VSCode and JetBrains IDE settings
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Lock files (optional - keep only one lock file if using a lock-based strategy)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Reports
+reports/
+test-report/
+
+# Temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Jest or Mocha cache (if used)
+.cache/
