@@ -11,7 +11,7 @@ class FormsPage extends Page {
             await browser.keys('Tab'); 
             const borderColor = await mobileField.getCSSProperty('border-color');
             expect(borderColor.value).toBe('rgba(220,53,69,1)'); // red border
-           // await mobileField.clearValue();
+           
         }
     }
     
@@ -29,10 +29,7 @@ class FormsPage extends Page {
             const borderColor = await mobileField.getCSSProperty('border-color');
             expect(['rgba(59,155,69,1)', 'rgba(40,167,69,1)']).toContain(borderColor.value);
 
-           // const borderColor = await mobileField.getCSSProperty('border-color');
-           // expect(borderColor.value).toContain('rgba(59,155,69,1)'| 'rgba(40,167,69,1)'); // green border rgba(59,155,69,1)rgba(113,120,69,1)rgba(82,140,69,1)rgba(82,140,69,1) rgba(40,167,69,1)
-          //  await mobileField.clearValue();
-        }
+               }
         
     }
 
