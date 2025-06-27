@@ -34,7 +34,7 @@ class FormsPage extends Page {
     }
 
     public async clickSubmit() {
-        await browser.scroll(1000, 900)
+        await browser.execute(() => window.scrollTo(0, document.body.scrollHeight));
         await $('#submit').click();
       
         }

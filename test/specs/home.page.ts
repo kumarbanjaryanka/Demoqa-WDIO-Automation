@@ -5,7 +5,7 @@ import CheckboxPage from '../pageobjects/checkbox.page'
 import FormsPage from '../pageobjects/forms.page'
 
 
-describe('My Login application', () => {
+describe('DemoQA scenarios to automate using WebdriverIO', () => {
     it('Select dynamically elements page menu option', async () => {
         await HomePage.open()
         await HomePage.clickElements()
