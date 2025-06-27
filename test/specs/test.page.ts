@@ -3,6 +3,7 @@ import HomePage from '../pageobjects/home.page'
 import ElementsMenu from '../pageobjects/elements.menu'
 import CheckboxPage from '../pageobjects/checkbox.page'
 import FormsPage from '../pageobjects/forms.page'
+import AlertsPage from '../pageobjects/alerts.page'
 
 
 describe('DemoQA scenarios to automate using WebdriverIO', () => {
@@ -29,6 +30,14 @@ describe('DemoQA scenarios to automate using WebdriverIO', () => {
         await FormsPage.invalidUserNumber(['1234567', 'abcdefghij', '1a2d4d5g7h', '123456789a', '12345678#!'])
         
     })
+
+    it('Navigate to Alerts and validate three button functionality', async () => {
+        await ElementsMenu.getMenu('Alerts, Frame & Windows')
+        await ElementsMenu.getElementsMenu('Browser Windows')
+        await AlertsPage.validateNewTab(); 
+        await AlertsPage.validateNewWindow();
+        await AlertsPage.validateMessageBox();
+       })
         
     
 })

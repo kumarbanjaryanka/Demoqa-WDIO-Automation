@@ -11,6 +11,7 @@ class ElementsMenu extends Page {
      */
     public async getMenu(menuName: string) {
         return await $(`div=${menuName}`).click();
+        
     }
 
    
