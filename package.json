@@ -21,6 +21,7 @@
     "aria-query": "^5.3.2",
     "ast-types": "^0.13.4",
     "async": "^3.2.6",
+    "axios": "^1.10.0",
     "b4a": "^1.6.7",
     "balanced-match": "^1.0.2",
     "bare-events": "^2.5.4",
@@ -201,7 +202,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "wdio": "wdio run wdio.conf.js"
-    },
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kumarbanjaryanka/Demoqa-WDIO-Automation.git"

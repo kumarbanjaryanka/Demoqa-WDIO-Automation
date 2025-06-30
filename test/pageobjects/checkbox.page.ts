@@ -4,10 +4,10 @@ import Page from './page';
 
 class CheckboxPage extends Page {
 
-   /**
-     * Returns the chevron (expand/collapse button) for the given parent node.
-     * @param parentName The label of the parent node in the checkbox tree
-     */
+    /**
+      * Returns the chevron (expand/collapse button) for the given parent node.
+      * @param parentName The label of the parent node in the checkbox tree
+      */
     private getChevronElement(parentName: string) {
         return $(`//*[contains(text(),"${parentName}")]/parent::node()/parent::node()/button`);
     }
@@ -45,16 +45,16 @@ class CheckboxPage extends Page {
     }
 
     public async validateChkBoxesChecked(parentNames: string[]) {
-    for (const name of parentNames) {
-        const iconElement = await this.getChkBoxStatus(name);
+        for (const name of parentNames) {
+            const iconElement = await this.getChkBoxStatus(name);
 
-        await expect(iconElement).toBeDisplayed();
+            await expect(iconElement).toBeDisplayed();
 
-        const classAttr = await iconElement.getAttribute('class');
-        expect(classAttr).toContain('rct-icon-check');
+            const classAttr = await iconElement.getAttribute('class');
+            expect(classAttr).toContain('rct-icon-check');
+        }
     }
-}
 
-}   
+}
 
 export default new CheckboxPage();
