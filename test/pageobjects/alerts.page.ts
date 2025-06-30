@@ -1,53 +1,50 @@
 import Page from "./page";
 import { $ } from "@wdio/globals";
 class AlertsPage extends Page {
-    public async validateNewWindow() {
-        const newWindowButton = await $("button#windowButton");
-        await newWindowButton.click();
-        const newWindowHandles = await browser.getWindowHandles();
-        expect(newWindowHandles.length).toBe(2);
-        await browser.switchToWindow(newWindowHandles[1]);
-        const newWindowText = await $("h1#sampleHeading").getText();
-        expect(newWindowText).toBe("This is a sample page");
-        await browser.closeWindow();
-        await browser.switchToWindow(newWindowHandles[0]);
-    }
-    public async validateNewTab() {
-        const newTabButton = await $("button#tabButton");
-        await newTabButton.click();
+    
+
+    private async switchToNewWindowAndValidateText(expectedText: string, selector: string = 'h1#sampleHeading') {
         const handles = await browser.getWindowHandles();
         expect(handles.length).toBe(2);
         await browser.switchToWindow(handles[1]);
-        const newTabText = await $("h1#sampleHeading").getText();
-        expect(newTabText).toBe("This is a sample page");
+        const actualText = await $(selector).getText();
+        expect(actualText).toBe(expectedText);
         await browser.closeWindow();
         await browser.switchToWindow(handles[0]);
     }
 
-    public async validateMessageBox() {
-        const messageBoxButton = await $("button#messageWindowButton");
-        await messageBoxButton.click();
-
+    private async waitForNewWindowToOpen(timeout: number = 5000) {
         await browser.waitUntil(
-            async () => {
-                const handles = await browser.getWindowHandles();
-                return handles.length === 2;
-            },
+            async () => (await browser.getWindowHandles()).length === 2,
             {
-                timeout: 5000,
+                timeout,
                 timeoutMsg: "Expected a second window to open",
             }
         );
+    }
+
+    public async validateNewWindow() {
+        await $("button#windowButton").click();
+        await this.switchToNewWindowAndValidateText("This is a sample page");
+    }
+
+    public async validateNewTab() {
+        await $("button#tabButton").click();
+        await this.switchToNewWindowAndValidateText("This is a sample page");
+    }
+
+    public async validateMessageBox() {
+        await $("button#messageWindowButton").click();
+
+        await this.waitForNewWindowToOpen();
 
         const handles = await browser.getWindowHandles();
-        expect(handles.length).toBe(2);
-
         await browser.switchToWindow(handles[1]);
 
         await browser.waitUntil(
             async () => {
                 const text = await browser.execute(() => document.body.innerText);
-                return text.length > 0;
+                return text.trim().length > 0;
             },
             {
                 timeout: 3000,
@@ -55,13 +52,12 @@ class AlertsPage extends Page {
             }
         );
 
-        const newTabText = await browser.execute(() => document.body.innerText);
+        const actualText = await browser.execute(() => document.body.innerText);
         const expectedText =
             "Knowledge increases by sharing but not by saving. Please share this website with your friends and in your organization.";
 
-        expect(newTabText.trim()).toBe(expectedText);
+        expect(actualText.trim()).toBe(expectedText);
 
-        // Close the new window and return to original
         await browser.closeWindow();
         await browser.switchToWindow(handles[0]);
     }

@@ -3,40 +3,40 @@ import { $ } from '@wdio/globals';
 
 class FormsPage extends Page {
 
-    public async invalidUserNumber(invalidUserNumber: string[]) {
-        for (const number of invalidUserNumber) {
-
-            const mobileField = $('#userNumber');
-            await mobileField.click();
-            await mobileField.setValue(`${number}`);
-            await browser.keys('Tab');
-            await browser.pause(3000);
-            const borderColor = await mobileField.getCSSProperty('border-color');
-            expect(borderColor.value).toBe('rgba(220,53,69,1)'); // red border
-
-        }
-    }
-
-    public async validUserNumber(validUserNumber: string[]) {
-        for (const number of validUserNumber) {
-
-            const mobileField = $('#userNumber');
-            await mobileField.click();
-            await mobileField.setValue(`${number}`);
-            await browser.keys('Tab');
-            await browser.pause(3000);
-            const borderColor = await mobileField.getCSSProperty('border-color');
-            expect(['rgba(59,155,69,1)', 'rgba(40,167,69,1)']).toContain(borderColor.value);
-
-        }
-
-    }
-
     public async clickSubmit() {
         await browser.execute(() => window.scrollTo(0, document.body.scrollHeight));
         await $('#submit').click();
 
     }
+
+    public async invalidUserNumber(invalidUserNumber: string[]) {
+    await this.validateUserNumbers(invalidUserNumber, 'rgba(220,53,69,1)');
+   }
+
+    public async validUserNumber(validUserNumber: string[]) {
+    await this.validateUserNumbers(validUserNumber, ['rgba(59,155,69,1)', 'rgba(40,167,69,1)']);
+   }
+
+   public async validateUserNumbers(numbers: string[], expectedColor: string | string[]) {
+    const mobileField = await $('#userNumber');
+
+    for (const number of numbers) {
+        await mobileField.click();
+        await mobileField.setValue(number);
+        await browser.keys('Tab');
+        await browser.pause(1000); 
+
+        const borderColor = await mobileField.getCSSProperty('border-color');
+
+        if (Array.isArray(expectedColor)) {
+            expect(expectedColor).toContain(borderColor.value);
+        } else {
+            expect(borderColor.value).toBe(expectedColor);
+        }
+
+        await mobileField.clearValue(); 
+    }
+}
 
 }
 
