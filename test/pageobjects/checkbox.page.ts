@@ -44,17 +44,14 @@ class CheckboxPage extends Page {
         return $(`//*[contains(text(),"${parentName}")]/parent::node()/parent::node()/label/span/*[contains(@class, "rct-icon-check")]`);
     }
 
-    public async validateChkBoxesChecked(parentNames: string[]) {
-        for (const name of parentNames) {
-            const iconElement = await this.getChkBoxStatus(name);
-
-            await expect(iconElement).toBeDisplayed();
-
-            const classAttr = await iconElement.getAttribute('class');
+    public async validateChkBoxesChecked(parentNames: Record<string, string>) {
+        for (const [key, expectedValue] of Object.entries(parentNames)) {
+            const isChecked = await this.getChkBoxStatus(expectedValue);
+            await expect(isChecked).toBeDisplayed();
+            const classAttr = await isChecked.getAttribute('class');
             expect(classAttr).toContain('rct-icon-check');
         }
     }
-
 }
 
 export default new CheckboxPage();

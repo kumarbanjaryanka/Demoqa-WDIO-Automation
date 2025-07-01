@@ -22,6 +22,8 @@ class ApiHelper {
     expect(uiTitles.length).toBe(apiTitles.length);
     for (let i = 0; i < uiTitles.length; i++) {
         expect(uiTitles[i]).toBe(apiTitles[i]);
+        console.log('API Titles:', apiTitles[i]);
+        console.log('UI Titles:', uiTitles[i]);
     }
 }
 

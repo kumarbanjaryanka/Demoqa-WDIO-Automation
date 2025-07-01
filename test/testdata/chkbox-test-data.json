@@ -1,26 +1,22 @@
 
-{
-    "expectedCheckedBoxes" : [
-    "Home",
-    "Desktop",
-    "Notes",
-    "Commands",
-    "Documents",
-    "WorkSpace",
-    "React",
-    "Angular",
-    "Veu",
-    "Office",
-    "Public",
-    "Private",
-    "Classified",
-    "General",
-    "Downloads",
-    "Word File.doc",
-    "Excel File.doc"
-    ],
-    "labelDescription" : [
-        "This is in-progress label",
-        "This is in-test label"
-    ]
-}
+    {
+        "expectedCheckedBoxes": {
+            "home": "Home",
+            "desktop": "Desktop",
+            "notes": "Notes",
+            "commands": "Commands",
+            "documents": "Documents",
+            "workspace": "WorkSpace",
+            "react": "React",
+            "angular": "Angular",
+            "veu": "Veu",
+            "office": "Office",
+            "public": "Public",
+            "private": "Private",
+            "classified": "Classified",
+            "general": "General",
+            "downloads": "Downloads",
+            "wordFile": "Word File.doc",
+            "excelFile": "Excel File.doc"
+        }
+    }

@@ -3,14 +3,32 @@ import { $ } from "@wdio/globals";
 class AlertsPage extends Page {
     
 
-    private async switchToNewWindowAndValidateText(expectedText: string, selector: string = 'h1#sampleHeading') {
-        const handles = await browser.getWindowHandles();
-        expect(handles.length).toBe(2);
-        await browser.switchToWindow(handles[1]);
-        const actualText = await $(selector).getText();
+    private async switchToWindow(handle: string) {
+        await browser.switchToWindow(handle);
+    }
+
+    get newTabButton() {
+        return $("button#tabButton");
+    }
+    get newWindowButton() {
+        return $("button#windowButton");
+    }
+
+    get messageWindowButton() {
+        return $("button#messageWindowButton");
+    }
+    get sampleHeading() {
+        return $("h1#sampleHeading");
+    }
+
+    private async switchToNewWindowAndValidateText(expectedText: string) {
+        const windowHandles  = await browser.getWindowHandles();
+        expect(windowHandles.length).toBe(2);
+        await this.switchToWindow(windowHandles[1]);
+        const actualText = await this.sampleHeading.getText();
         expect(actualText).toBe(expectedText);
         await browser.closeWindow();
-        await browser.switchToWindow(handles[0]);
+        await this.switchToWindow(windowHandles[0]);
     }
 
     private async waitForNewWindowToOpen(timeout: number = 5000) {
@@ -24,20 +42,18 @@ class AlertsPage extends Page {
     }
 
     public async validateNewWindow() {
-        await $("button#windowButton").click();
+        await this.newWindowButton.click();
         await this.switchToNewWindowAndValidateText("This is a sample page");
     }
 
     public async validateNewTab() {
-        await $("button#tabButton").click();
+        await this.newTabButton.click();
         await this.switchToNewWindowAndValidateText("This is a sample page");
     }
 
     public async validateMessageBox() {
-        await $("button#messageWindowButton").click();
-
+        await this.messageWindowButton.click();
         await this.waitForNewWindowToOpen();
-
         const handles = await browser.getWindowHandles();
         await browser.switchToWindow(handles[1]);
 
