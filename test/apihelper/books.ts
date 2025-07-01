@@ -2,10 +2,10 @@ import axios from "axios";
 import { browser } from '@wdio/globals';
 
 class ApiHelper {
-  public async getBookTitles(): Promise<string[]> {     
+  public async getApiBookTitles(): Promise<string[]> {     
     const apiResponse = await axios.get('https://demoqa.com/BookStore/v1/Books');
     const books = apiResponse.data.books;
-    return books.map((book: { title: string }) => book.title);
+    return Promise.all(books.map((book: { title: string }) => book.title));
   }
    
   public async getUiBookTitles(): Promise<string[]> {
@@ -15,7 +15,7 @@ class ApiHelper {
     }
 
     public async validateBookTitles(): Promise<void> {
-    const apiTitles = await this.getBookTitles();
+    const apiTitles = await this.getApiBookTitles();
     const uiTitles = await this.getUiBookTitles();
     console.log('API Titles:', apiTitles);
     console.log('UI Titles:', uiTitles);
